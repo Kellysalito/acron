@@ -7,8 +7,11 @@ class User::WordsController < ApplicationController
 
   def create
     @word = current_user.words.create(word_params)
+    if @word.valid?
     redirect_to user_word_path(@word)
     else
+      render :new, status: :unprocessable_entity
+    end
     
   end
 
